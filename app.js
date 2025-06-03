@@ -16,19 +16,14 @@ export const app = express();
 
 config({ path: "./config/config.env" });
 
-// Enhanced CORS configuration
-const corsOptions = {
-  origin: process.env.FRONTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  credentials: true,
-  optionsSuccessStatus: 200
-};
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
-// Middlewares
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,18 +35,13 @@ app.use(
   })
 );
 
-// Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
 app.use("/api/v1/user", userRouter);
 
-// Services
 notifyUsers();
 removeUnverifiedAccounts();
-
-// Database connection
 connectDB();
 
-// Error middleware
 app.use(errorMiddleware);
