@@ -17,7 +17,7 @@ export const app = express();
 config({ path: "./config/config.env" });
 
 const allowedOrigins = [
-  "https://chipper-kangaroo-e79f7a.netlify.app",
+  "https://newlibrarysystem.netlify.app",
   "http://localhost:5173",
 ];
 
