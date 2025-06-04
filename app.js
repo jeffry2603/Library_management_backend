@@ -18,7 +18,7 @@ config({ path: "./config/config.env" });
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://chipper-kangaroo-e79f7a.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
