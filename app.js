@@ -16,9 +16,20 @@ export const app = express();
 
 config({ path: "./config/config.env" });
 
+const allowedOrigins = [
+  "https://chipper-kangaroo-e79f7a.netlify.app",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: "https://chipper-kangaroo-e79f7a.netlify.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
