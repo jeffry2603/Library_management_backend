@@ -4,13 +4,11 @@ import {
   getBorrowedBooksForAdmin,
   recordBorrowedBook,
   returnBorrowBook,
-  borrowBook,
 } from "../controllers/borrowControllers.js";
 import {
   isAuthenticated,
   isAuthorized,
 } from "../middlewares/authMiddleware.js";
-import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 
 const router = express.Router();
 
@@ -18,33 +16,23 @@ router.post(
   "/record-borrow-book/:id",
   isAuthenticated,
   isAuthorized("Admin"),
-  catchAsyncErrors(recordBorrowedBook)
-);
-
-router.post(
-  "/borrow-book/:id",
-  isAuthenticated,
-  catchAsyncErrors(borrowBook)
+  recordBorrowedBook
 );
 
 router.get(
   "/borrowed-books-by-users",
   isAuthenticated,
   isAuthorized("Admin"),
-  catchAsyncErrors(getBorrowedBooksForAdmin)
+  getBorrowedBooksForAdmin
 );
 
-router.get(
-  "/my-borrowed-books",
-  isAuthenticated,
-  catchAsyncErrors(borrowedBooks)
-);
+router.get("/my-borrowed-books", isAuthenticated, borrowedBooks);
 
 router.put(
   "/return-borrowed-book/:bookId",
   isAuthenticated,
   isAuthorized("Admin"),
-  catchAsyncErrors(returnBorrowBook)
+  returnBorrowBook
 );
 
 export default router;
