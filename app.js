@@ -16,7 +16,7 @@ export const app = express();
 
 config({ path: "./config/config.env" });
 
-app.use(cors())
+app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json());
