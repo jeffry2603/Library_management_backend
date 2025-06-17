@@ -16,7 +16,7 @@ export const app = express();
 
 config({ path: "./config/config.env" });
 
-app.use(cors());
+app.use(cors({origin  : "https://chipper-kangaroo-e79f7a.netlify.app", credentials:true}))
 
 app.use(cookieParser());
 app.use(express.json());
