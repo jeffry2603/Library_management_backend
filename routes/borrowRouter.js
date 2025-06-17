@@ -4,6 +4,7 @@ import {
   getBorrowedBooksForAdmin,
   recordBorrowedBook,
   returnBorrowBook,
+  userBorrowBook
 } from "../controllers/borrowControllers.js";
 import {
   isAuthenticated,
@@ -17,6 +18,12 @@ router.post(
   isAuthenticated,
   isAuthorized("Admin"),
   recordBorrowedBook
+);
+
+router.post(
+  "/borrow-book/:id",
+  isAuthenticated,
+  userBorrowBook
 );
 
 router.get(
